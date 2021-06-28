@@ -9,10 +9,10 @@ const cors = require('cors');
 connectDB();
 
 // cors
-const corsOptions = {
-    origin : process.env.ALLOWED_CLIENTS.split(',')
-}
-app.use(cors(corsOptions));
+// const corsOptions = {
+//     origin : process.env.ALLOWED_CLIENTS.split(',')
+// }
+// app.use(cors(corsOptions));
 
 // static folder
 app.use(express.static('public'));
