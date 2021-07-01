@@ -1,0 +1,29 @@
+:root{
+    --main-bg-color : #eff5fe;
+    --border-color  : #0288d147;
+}
+body , html {
+    font-family : syste-ui;
+    background  : var(--main-bg-color);
+    height      : 100%;
+    padding     : 0;
+    margin      : 0;
+}
+
+body{
+    display : flex;
+    align-items : center;
+    justify-content : center;
+}
+
+.upload-container{
+    background : #ffffff;
+
+}
+
+.drop-zone{
+    width : 500px;
+    min-height : 200px;
+    border     : 2px dashed var(--border-color);
+    margin     : 30px;
+}
