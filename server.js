@@ -4,14 +4,15 @@ const PORT = process.env.PORT || 3000;
 const connectDB = require('./config/db');
 const path = require('path');
 const cors = require('cors');
+require("dotenv").config();
 
 // connect database
 connectDB();
 
 const corsOptions = {
-    origin: process.env.ALLOWED_CLIENTS.split(","),
-  };
-  
+  origin: process.env.ALLOWED_CLIENTS.split(","),
+};
+
 app.use(cors(corsOptions));
 
 // static folder
