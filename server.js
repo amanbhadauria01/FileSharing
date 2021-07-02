@@ -18,9 +18,9 @@ app.set('view engine','ejs');
 
 // routes
 app.use('/', function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", process.env.ALLOWED_CLIENTS);
-    res.header("Access-Control-Allow-Headers", process.env.ALLOWED_HEADERS);
-    res.header("Access-Control-Allow-Methods", process.env.ALLOWED_METHODS);
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "*");
+    res.header("Access-Control-Allow-Methods", "POST");
     console.log("Passed 1");
     next();
 });
