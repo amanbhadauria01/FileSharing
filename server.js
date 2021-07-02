@@ -21,6 +21,7 @@ app.use('/', function(req, res, next) {
     res.header("Access-Control-Allow-Origin", process.env.ALLOWED_CLIENTS);
     res.header("Access-Control-Allow-Headers", process.env.ALLOWED_HEADERS);
     res.header("Access-Control-Allow-Methods", process.env.ALLOWED_METHODS);
+    console.log("Passed 1");
     next();
 });
 
