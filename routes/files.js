@@ -16,7 +16,7 @@ let storage = multer.diskStorage({
 
 let upload = multer({
     storage : storage,
-    limit   : {fileSize : 1000000 * 100},
+    limits   : {fileSize : 1000000 * 100},
 
 }).single('myfile');  // as we are uploading single file
 
@@ -33,10 +33,14 @@ router.post('/',(req,res)=>{
            path     : req.file.path , // joins destination and filename to make path , fun is multer.diskstorage
            size     : req.file.size 
         })
-        const response = await file.save(); 
-        // this is download link
-        // the url will be like http://localhost:3000/files/asidjfknlasdnf94
-        return res.json({file : `${process.env.APP_BASE_URL}/files/${response.uuid}`}); // domain name shouldn't be hardcoded , whatever we written in env is needed which is dynamic
+        try{
+            const response = await file.save(); 
+            // this is download link
+            // the url will be like http://localhost:3000/files/asidjfknlasdnf94
+            res.json({file : `${process.env.APP_BASE_URL}/files/${response.uuid}`}); // domain name shouldn't be hardcoded , whatever we written in env is needed which is dynamic
+        }catch (err){
+            console.log(err);
+        }
     })    
     // response->contains download link 
 })
