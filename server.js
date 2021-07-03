@@ -1,46 +1,43 @@
-
-
-
-
-const express = require("express");
-const DB = require("./config/db");
-const ejs = require("ejs");
-const path = require("path");
+const express = require('express');
+const app = express();
+const PORT = process.env.PORT || 3000;   
+const connectDB = require('./config/db');
+const path = require('path');
 const cors = require("cors");
-
 require("dotenv").config();
 
-const app = express();
-DB();
+// connect database
+connectDB();
 
+app.use(cors());
+app.options('*', cors());
 // const corsOptions = {
-//   origin: process.env.ALLOWED_CLIENTS.split(","),
+//     origin: process.env.ALLOWED_CLIENTS.split(","),
 // };
-
+  
 // app.use(cors(corsOptions));
 
-//template engine
-app.set("views", path.join(__dirname, "/views"));
-app.set("view engine", "ejs");
-
+// static folder
+app.use(express.static('public'));
 app.use(express.json());
-app.use(express.static("public"));
+
+// template engine
+app.set('views',path.join(__dirname,'views'));
+app.set('view engine','ejs');
 
 // routes
-app.use('/', function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "*");
-    res.header("Access-Control-Allow-Methods", "POST");
-    console.log("Passed 1");
-    next();
-});
+// app.use('/', function(req, res, next) {
+//     res.header("Access-Control-Allow-Origin", "*");
+//     res.header("Access-Control-Allow-Headers", "*");
+//     res.header("Access-Control-Allow-Methods", "POST");
+//     console.log("Passed 1");
+//     next();
+// });
 
-app.use("/files", require("./routes/show"));
-app.use("/files/download", require("./routes/download"));
-app.use("/api/files", require("./routes/files"));
+app.use('/api/files',require('./routes/files'));
+app.use('/files',require('./routes/show'));
+app.use('/files/download',require('./routes/download'));
 
-const PORT = process.env.PORT || 3000;
-
-app.listen(PORT, () => {
-  console.log(`server started on port ${PORT}`);
-});
+app.listen(PORT,()=>{
+    console.log(`Listening on Port ${PORT}`);
+})
