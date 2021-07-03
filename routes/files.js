@@ -37,7 +37,7 @@ router.post('/',(req,res)=>{
             const response = await file.save(); 
             // this is download link
             // the url will be like http://localhost:3000/files/asidjfknlasdnf94
-            res.json({file : `${process.env.APP_BASE_URL}/files/${response.uuid}`}); // domain name shouldn't be hardcoded , whatever we written in env is needed which is dynamic
+            return res.json({file : `${process.env.APP_BASE_URL}/files/${response.uuid}`}); // domain name shouldn't be hardcoded , whatever we written in env is needed which is dynamic
         }catch (err){
             console.log(err);
         }
@@ -52,13 +52,15 @@ router.post('/send',async(req,res)=>{
     // get data from database
     const file = await File.findOne({uuid : uuid});
     // if there is sender , means email has been already sent
-    // if(file.sender)return res.status(422).send({error : 'Email already sent'});
+    if(file.sender)return res.status(422).send({error : 'Email already sent'});
     file.sender = emailFrom;
     file.receiver = emailTo;
     const response = await file.save();
     // send email , this sendMail is our custom fun
+    console.log(emailFrom);
     const sendMail = require('../services/emailService');
-    sendMail({
+    console.log(emailTo);
+    await sendMail({
         from    : emailFrom,
         to      : emailTo,
         subject : 'fileshare',
