@@ -6,6 +6,7 @@ const path = require('path');
 const cors = require("cors");
 const cron = require('node-cron');
 require("dotenv").config();
+const CleanOldData = require('./services/checkmemory');
 
 // connect database
 connectDB();
@@ -40,13 +41,13 @@ app.use('/files',require('./routes/show'));
 app.use('/files/download',require('./routes/download'));
 
 // Schedule tasks to be run on the server every day 4 a.m.
-cron.schedule('* * * * *', function() {
-    const CleanOldData = require('./service/checkmemory.js');
+cron.schedule('0 4 * * *', function() {
+    console.log('cleaning started');
     CleanOldData().then(()=>{
-        // to stop script
-        process.exit();
-    });
+    // to stop script
     console.log('cleaned');
+    process.exit();
+    });
 });
 
 app.listen(PORT,()=>{
