@@ -4,6 +4,7 @@ const PORT = process.env.PORT || 3000;
 const connectDB = require('./config/db');
 const path = require('path');
 const cors = require("cors");
+const cron = require('node-cron');
 require("dotenv").config();
 
 // connect database
@@ -37,6 +38,16 @@ app.set('view engine','ejs');
 app.use('/api/files',require('./routes/files'));
 app.use('/files',require('./routes/show'));
 app.use('/files/download',require('./routes/download'));
+
+// Schedule tasks to be run on the server every day 4 a.m.
+cron.schedule('* * * * *', function() {
+    const CleanOldData = require('./service/checkmemory.js');
+    CleanOldData().then(()=>{
+        // to stop script
+        process.exit();
+    });
+    console.log('cleaned');
+});
 
 app.listen(PORT,()=>{
     console.log(`Listening on Port ${PORT}`);

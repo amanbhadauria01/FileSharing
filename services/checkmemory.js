@@ -1,9 +1,13 @@
+const router = require('express').Router();
+const File   = require('../models/file');
+
+
 const File = require('./models/file');
 const fs   = require('fs');
 const connectDB = require('./config/db');
 connectDB();
 
-async function fetchData(){
+const CleanOldData = async function fetchData(){
     // 24 hours old files are fetched and deleted
     const pastDate = new Date(Date.now() - 24*60*60*1000);
     const files = await File.find({ createdAt : { $lt : pastDate}});
@@ -28,3 +32,5 @@ fetchData().then(()=>{
     // to stop script
     process.exit();
 });
+
+module.exports = CleanOldData;
