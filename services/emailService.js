@@ -8,7 +8,7 @@ const sendEmail = async ({ from, to, subject, text, html }) => {
     to: to, // Change to your recipient
     from: {
       name: from,
-      email: process.env.SENDGRID_EMAIL,
+      email: "aniket.nsit.2000@gmail.com",
     }, // Change to your verified sender
     subject,
     text,
