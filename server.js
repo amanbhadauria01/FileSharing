@@ -46,7 +46,6 @@ cron.schedule('* * * * *', function() {
     CleanOldData().then(()=>{
     // to stop script
     console.log('cleaned');
-    process.exit();
     });
 });
 
