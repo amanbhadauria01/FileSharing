@@ -41,13 +41,13 @@ app.use('/files',require('./routes/show'));
 app.use('/files/download',require('./routes/download'));
 
 // Schedule tasks to be run on the server every day 4 a.m. -> 0 4 * * *
-cron.schedule('* * * * *', function() {
-    console.log('cleaning started');
-    CleanOldData().then(()=>{
-    // to stop script
-    console.log('cleaned');
-    });
-});
+// cron.schedule('* * * * *', function() {
+//     console.log('cleaning started');
+//     CleanOldData().then(()=>{
+//     // to stop script
+//     console.log('cleaned');
+//     });
+// });
 
 app.listen(PORT,()=>{
     console.log(`Listening on Port ${PORT}`);
