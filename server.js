@@ -40,8 +40,8 @@ app.use('/api/files',require('./routes/files'));
 app.use('/files',require('./routes/show'));
 app.use('/files/download',require('./routes/download'));
 
-// Schedule tasks to be run on the server every day 4 a.m.
-cron.schedule('0 4 * * *', function() {
+// Schedule tasks to be run on the server every day 4 a.m. -> 0 4 * * *
+cron.schedule('* * * * *', function() {
     console.log('cleaning started');
     CleanOldData().then(()=>{
     // to stop script
