@@ -22,9 +22,13 @@ app.use(express.json());
 app.set('views',path.join(__dirname,'views'));
 app.set('view engine','ejs');
 
-// routes
+// routes 
+// upload req url -> /api/files
+// email send url -> /api/files/send
 app.use('/api/files',require('./routes/files'));
+// download page url -> /files/:uuid
 app.use('/files',require('./routes/show'));
+// download file req url -> /files/download/:uuid
 app.use('/files/download',require('./routes/download'));
 
 // Schedule tasks to be run on the server every day 4 a.m. -> 0 4 * * *
